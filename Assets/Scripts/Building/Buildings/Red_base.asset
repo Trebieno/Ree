@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4861d22e4eed9f74da46f050450b3147, type: 3}
+  m_Name: Red_base
+  m_EditorClassIdentifier: 
+  colorCommand: 1
+  Name: "\u0411\u0430\u0437\u0430"
+  Cost: 100
+  TimeConstruction: 0
+  PrefubBuilding: {fileID: 3002026583621950197, guid: b9e3279231d18644f8aabfcfbaf71e72, type: 3}

@@ -8,6 +8,7 @@ public class Energy : MonoBehaviour
     public int MinEnergyToActive = 0; //Минимальное количество энергии для работы
     public int CurEnergy = 0;
     public int MaxEnergy = 0;
+
     public bool Charg = false; //Зарядка
     //public bool LowEnergy;
 

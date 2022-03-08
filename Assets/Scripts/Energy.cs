@@ -19,8 +19,9 @@ public class Energy : MonoBehaviour
     public int Discharge = 0;   //Саморазряд
 
     [Header("Подключения")]
-    public int MaxItemConnect = 0;
+    public List<Transform> connection; // Подключённые к этому объекту объекты
     public List<LineController> ItemConnect;
+    public int MaxItemConnect = 0;
 
 
     private void Start()
@@ -32,18 +33,19 @@ public class Energy : MonoBehaviour
     {
         if (StartObject.CurEnergy > 0)
         {
+            int addition = StartObject.SearchOfConnection(StartObject.connection).Count;
             if (StartObject.Conductivity >= EndObject.Conductivity)
             {
                 int difference = StartObject.Conductivity - EndObject.Conductivity;
                 StartObject.CurEnergy -= StartObject.Conductivity - difference;
-                EndObject.CurEnergy += StartObject.Conductivity - difference;
+                EndObject.CurEnergy += StartObject.Conductivity - difference + addition; 
             }
 
             else if (StartObject.Conductivity <= EndObject.Conductivity)
             {
                 int difference = StartObject.Conductivity - EndObject.Conductivity;
                 StartObject.CurEnergy -= StartObject.Conductivity + difference;
-                EndObject.CurEnergy += StartObject.Conductivity + difference;
+                EndObject.CurEnergy += StartObject.Conductivity + difference + addition;
             }
         }
     }
@@ -77,5 +79,49 @@ public class Energy : MonoBehaviour
     public void StopCharging()
     {
         StopAllCoroutines();
+    }
+    
+    public List<Transform> SearchOfConnection(List<Transform> connection)
+    {
+        if (1 < connection.Count)
+        {
+            
+            foreach (Transform i1 in connection)
+            {
+                foreach (Transform i2 in this.connection)
+                {
+                    bool same = false;
+                    if (i1 == i2) same = true;
+                    if (!same)
+                    {
+                        this.connection.Add(i1);
+                        SearchOfConnection(this.connection);
+                    }
+                }
+            }
+        }
+        else if(0 < connection.Count)
+        {
+            this.connection.Add(connection[0]);
+            SearchOfConnection(this.connection);
+        }
+        return this.connection;
+    }
+
+    // Взаимодействие с подключённым проводом
+
+    public void Connection(Transform point)
+    {
+        point.GetComponent<Energy>().connection.Add(point);
+    }
+
+    public void Disconnection(Transform point)
+    {
+        point.GetComponent<Energy>().connection.Remove(point);
+    }
+
+    public List<Transform> ReturnConnectCable()
+    {
+        return connection;
     }
 }

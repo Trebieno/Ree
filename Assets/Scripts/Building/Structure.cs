@@ -5,18 +5,18 @@ using UnityEngine;
 public class Structure : MonoBehaviour
 {
     [Header("Description")]
-    public string Name;
-    public GameObject PrefubUnit;
+    [SerializeField] private string _name;
+    [SerializeField] private GameObject _prefubUnit;
 
-    public int CurHealth;
-    public int MaxHealth;
+    [SerializeField] private int _curHealth;
+    [SerializeField] private int _maxHealth;
 
-    public bool Making = false;
-    public bool SpawningUnits;
+    [SerializeField] private bool _making = false;
+    [SerializeField] private bool _spawningUnits;
 
     private void Start()
     {
-        if (Making && SpawningUnits) StartCoroutine(SpawnUnit());
+        if (_making && _spawningUnits) StartCoroutine(SpawnUnit());
     }
 
     private int index = 0;
@@ -25,9 +25,9 @@ public class Structure : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         index++;
 
-        if (index > 3 && Making)
+        if (index > 3 && _making)
         {
-            Instantiate(PrefubUnit, transform.position, transform.rotation);
+            Instantiate(_prefubUnit, transform.position, transform.rotation);
             index = 0;
         }
         StartCoroutine(SpawnUnit());
@@ -35,6 +35,6 @@ public class Structure : MonoBehaviour
 
     protected virtual void SetState()
     {
-        Making = !Making;
+        _making = !_making;
     }
 }

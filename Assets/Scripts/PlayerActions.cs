@@ -6,45 +6,45 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
 
-    [SerializeField] private List<GameObject> otherObjects;
-    [SerializeField] private List<GameObject> nearestObjects;
+    [SerializeField] private List<GameObject> _otherObjects;
+    [SerializeField] private List<GameObject> _nearestObjects;
 
-    private ShopBuilding shopBuilding;
+    private ShopBuilding _shopBuilding;
 
     private void Start()
     {
-        shopBuilding = GetComponent<ShopBuilding>();
+        _shopBuilding = GetComponent<ShopBuilding>();
     }
     
     private void Update()
     {
-        if (shopBuilding.StatusBuy)
+        if (_shopBuilding.StatusBuy)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                shopBuilding.PurchaseBuilding();
+                _shopBuilding.PurchaseBuilding();
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                shopBuilding.CancelBuy();
+                _shopBuilding.CancelBuy();
             }
 
-            shopBuilding.MoveHologram();
+            _shopBuilding.MoveHologram();
         }
 
-        otherObjects = GameObject.FindGameObjectsWithTag("Unit").ToList();
+        _otherObjects = GameObject.FindGameObjectsWithTag("Unit").ToList();
         foreach (GameObject item in GameObject.FindGameObjectsWithTag("Building").ToList())
         {
-            otherObjects.Add(item);
+            _otherObjects.Add(item);
         }
     }
 
     public List<GameObject> ConnectingToDataBase(GameObject Object)
     {
         //Debug.Log("Поделючаюсь к базе");
-        nearestObjects = otherObjects.Where(x => Vector3.Distance(Object.transform.position, x.transform.position) < 8f).ToList();
-        nearestObjects = nearestObjects.OrderBy(x => Vector3.Distance(Object.transform.position, x.transform.position)).ToList();
+        _nearestObjects = _otherObjects.Where(x => Vector3.Distance(Object.transform.position, x.transform.position) < 8f).ToList();
+        _nearestObjects = _nearestObjects.OrderBy(x => Vector3.Distance(Object.transform.position, x.transform.position)).ToList();
 
-        return nearestObjects;
+        return _nearestObjects;
     }
 }

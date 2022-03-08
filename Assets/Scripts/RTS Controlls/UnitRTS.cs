@@ -6,11 +6,11 @@ public enum ColorCommand { blue, red }
 public class UnitRTS : MonoBehaviour
 {
     [Header("Description")]
-    public string Name = "None";
-    public ColorCommand ColorCommand;
-    public int MaxHealth;
-    public int CurHealth;
-    public float Speed;
+    [SerializeField] private string _name = "None";
+    [SerializeField] private ColorCommand _colorCommand;
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private int _curHealth;
+    [SerializeField] private float _speed;
 
     private GameObject selectedGameObject;
     private IMovePosition movePosition;

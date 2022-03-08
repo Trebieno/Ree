@@ -71,18 +71,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5194bfb8deaa6e45bad207747c5df6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  PrefubUnit: {fileID: 0}
-  CurHealth: 0
-  MaxHealth: 0
-  Making: 0
-  SpawningUnits: 0
-  prefubCable: {fileID: 1924978386725657026, guid: 58d9b22ae479e7743b2ab70eaabc15ca, type: 3}
-  connection: []
-  points: []
-  cables: []
-  nearestObjects: []
-  allObjects: {fileID: 0}
+  _name: Pillar
+  _prefubUnit: {fileID: 0}
+  _curHealth: 0
+  _maxHealth: 0
+  _making: 0
+  _spawningUnits: 0
+  _prefubCable: {fileID: 1924978386725657026, guid: 58d9b22ae479e7743b2ab70eaabc15ca, type: 3}
+  _connection: []
+  _points: []
+  _cables: []
+  _nearestObjects: []
+  _allObjects: {fileID: 0}
 --- !u!61 &6157846422781155233
 BoxCollider2D:
   m_ObjectHideFlags: 0

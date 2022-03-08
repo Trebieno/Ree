@@ -6,63 +6,63 @@ using UnityEngine;
 public class GameRTSConroller : MonoBehaviour
 {
     
-    [SerializeField] private LayerMask maskMoveCursor;
-    [SerializeField] private Transform selectionAreaTransform;
+    [SerializeField] private LayerMask _maskMoveCursor;
+    [SerializeField] private Transform _selectionAreaTransform;
 
-    private Vector3 startPosition;
-    private List<UnitRTS> selectedUnitRTSList;
+    private Vector3 _startPosition;
+    private List<UnitRTS> _selectedUnitRTSList;
 
-    private Camera m_Camera;
+    private Camera _camera;
 
     private void Awake()
     {
-        selectedUnitRTSList = new List<UnitRTS>();
-        selectionAreaTransform.gameObject.SetActive(false);
+        _selectedUnitRTSList = new List<UnitRTS>();
+        _selectionAreaTransform.gameObject.SetActive(false);
     }
     
     
     private void Start()
     {
-        m_Camera = Camera.main;
+        _camera = Camera.main;
     }
     
     
 
     private void Update()
     {
-        Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, maskMoveCursor))
+        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, _maskMoveCursor))
         {
             Vector3 rayPos = new Vector3(hitInfo.point.x, hitInfo.point.y, -0.1f);
             
             if (Input.GetMouseButtonDown(0))
             {
-                selectionAreaTransform.gameObject.SetActive(true);
-                startPosition = rayPos;
+                _selectionAreaTransform.gameObject.SetActive(true);
+                _startPosition = rayPos;
             }
 
             if (Input.GetMouseButton(0))
             {
                 Vector3 currentMousePosition = rayPos;
-                Vector3 lowerLeft = new Vector3(Mathf.Min(startPosition.x, currentMousePosition.x),
-                                                Mathf.Min(startPosition.y, currentMousePosition.y));
+                Vector3 lowerLeft = new Vector3(Mathf.Min(_startPosition.x, currentMousePosition.x),
+                                                Mathf.Min(_startPosition.y, currentMousePosition.y));
 
-                Vector3 upperRight = new Vector3(Mathf.Max(startPosition.x, currentMousePosition.x),
-                                                Mathf.Max(startPosition.y, currentMousePosition.y));
-                selectionAreaTransform.position = lowerLeft;
-                selectionAreaTransform.localScale = upperRight - lowerLeft;
+                Vector3 upperRight = new Vector3(Mathf.Max(_startPosition.x, currentMousePosition.x),
+                                                Mathf.Max(_startPosition.y, currentMousePosition.y));
+                _selectionAreaTransform.position = lowerLeft;
+                _selectionAreaTransform.localScale = upperRight - lowerLeft;
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                selectionAreaTransform.gameObject.SetActive(false);
-                Collider2D[] collider2DArray = Physics2D.OverlapAreaAll(startPosition, rayPos);
+                _selectionAreaTransform.gameObject.SetActive(false);
+                Collider2D[] collider2DArray = Physics2D.OverlapAreaAll(_startPosition, rayPos);
 
-                foreach (UnitRTS unitRTS in selectedUnitRTSList)
+                foreach (UnitRTS unitRTS in _selectedUnitRTSList)
                 {
                     unitRTS.SetSelectedVisible(false);
                 }
-                selectedUnitRTSList.Clear();
+                _selectedUnitRTSList.Clear();
 
                 foreach (Collider2D collider2D in collider2DArray)
                 {
@@ -70,7 +70,7 @@ public class GameRTSConroller : MonoBehaviour
                     if (unitRTS != null)
                     {
                         unitRTS.SetSelectedVisible(true);
-                        selectedUnitRTSList.Add(unitRTS);
+                        _selectedUnitRTSList.Add(unitRTS);
                     }
                     //Debug.Log(selectedUnitRTSList.Count);
                 }
@@ -84,7 +84,7 @@ public class GameRTSConroller : MonoBehaviour
 
                 int targetPositionListIndex = 0;
 
-                foreach (UnitRTS unitRTS in selectedUnitRTSList)
+                foreach (UnitRTS unitRTS in _selectedUnitRTSList)
                 {
                     unitRTS.MoveTo(targetPositionList[targetPositionListIndex]);
                     targetPositionListIndex = (targetPositionListIndex + 1) % targetPositionList.Count;
@@ -115,7 +115,6 @@ public class GameRTSConroller : MonoBehaviour
             Vector3 position = startPosition + dir * distance;
             positionList.Add(position);
         }
-
         return positionList;
     }
 

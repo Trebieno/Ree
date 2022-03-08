@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7cb02b75d2ab347b5fe02633ca6501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherObjects: []
-  nearestObjects: []
+  _otherObjects: []
+  _nearestObjects: []
 --- !u!114 &355235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,14 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168cbe09c570e604982119670721e76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingData:
-  - {fileID: 11400000, guid: 500410acade63284fa7e09d73656ef27, type: 2}
-  - {fileID: 11400000, guid: 5b21fc29af651d741b0a5c070c9e458a, type: 2}
-  - {fileID: 11400000, guid: 35b6f5ba67ab0364f9799632f5f51eb4, type: 2}
-  prefabHologram: {fileID: 4451509798371098030, guid: 434cce9eb13463b4e9c0ac5b3602594f, type: 3}
-  maskMoveHologram:
+  _buildingData: []
+  _prefabHologram: {fileID: 0}
+  _maskMoveHologram:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
 --- !u!4 &355236
 Transform:
   m_ObjectHideFlags: 0
@@ -1159,7 +1156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 232150405611800001, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.098333
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 232150405611800001, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1524,10 +1521,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8135d7636f7fe438bcd3e448a43bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskMoveCursor:
+  _maskMoveCursor:
     serializedVersion: 2
-    m_Bits: 512
-  selectionAreaTransform: {fileID: 8922140635630549376}
+    m_Bits: 64
+  _selectionAreaTransform: {fileID: 8922140635630549376}
 --- !u!4 &575006679
 Transform:
   m_ObjectHideFlags: 0
@@ -2106,6 +2103,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 232150405611800000, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: _name
+      value: Pillar
+      objectReference: {fileID: 0}
+    - target: {fileID: 232150405611800000, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: _prefubCable
+      value: 
+      objectReference: {fileID: 1924978386725657026, guid: 58d9b22ae479e7743b2ab70eaabc15ca, type: 3}
     - target: {fileID: 232150405611800001, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: m_RootOrder
       value: 9

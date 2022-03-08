@@ -5,34 +5,34 @@ using UnityEngine;
 public class ShopBuilding : MonoBehaviour
 {
     public bool StatusBuy { get; private set; }
-    [SerializeField] private ShopBuildingDATA[] buildingData;
+    [SerializeField] private ShopBuildingDATA[] _buildingData;
 
     [Header("Hologram settings")]
-    [SerializeField] private GameObject prefabHologram;
-    [SerializeField] private LayerMask maskMoveHologram;
+    [SerializeField] private GameObject _prefabHologram;
+    [SerializeField] private LayerMask _maskMoveHologram;
 
-    private int indexBuyBuilding;
-    private Construction hologramBuilding;
-    private Transform transformHologram;
+    private int _indexBuyBuilding;
+    private Construction _hologramBuilding;
+    private Transform _transformHologram;
 
-    private Camera m_Camera;
+    private Camera _camera;
 
     private void Start()
     {
-        m_Camera = Camera.main;
+        _camera = Camera.main;
     }
 
     public void BuyBuilding(int indexInShop)
     {
-        if (Static.money > buildingData[indexInShop].Cost)
+        if (Static.money > _buildingData[indexInShop].Cost)
         {
             if (!StatusBuy)
             {
-                indexBuyBuilding = indexInShop;
-                hologramBuilding = Instantiate(prefabHologram, Vector3.zero, Quaternion.identity).GetComponent<Construction>();
-                hologramBuilding.InitializeHologram(buildingData[indexBuyBuilding]);
+                _indexBuyBuilding = indexInShop;
+                _hologramBuilding = Instantiate(_prefabHologram, Vector3.zero, Quaternion.identity).GetComponent<Construction>();
+                _hologramBuilding.InitializeHologram(_buildingData[_indexBuyBuilding]);
 
-                transformHologram = hologramBuilding.transform;
+                _transformHologram = _hologramBuilding.transform;
                 StatusBuy = true;
             }
         }
@@ -40,10 +40,10 @@ public class ShopBuilding : MonoBehaviour
 
     public void MoveHologram()
     {
-        Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, 50.0f, maskMoveHologram))
+        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 50.0f, _maskMoveHologram))
         {
-            transformHologram.position = new Vector3(hitInfo.point.x, hitInfo.point.y, -0.1f);
+            _transformHologram.position = new Vector3(hitInfo.point.x, hitInfo.point.y, -0.1f);
         }
     }
 
@@ -56,9 +56,9 @@ public class ShopBuilding : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
 
-        if (hologramBuilding.AcceptBuying())
+        if (_hologramBuilding.AcceptBuying())
         {
-            Static.money -= buildingData[indexBuyBuilding].Cost;
+            Static.money -= _buildingData[_indexBuyBuilding].Cost;
             StatusBuy = false;
         }
     }
@@ -66,6 +66,6 @@ public class ShopBuilding : MonoBehaviour
     public void CancelBuy()
     {
         StatusBuy = false;
-        Destroy(hologramBuilding.gameObject);
+        Destroy(_hologramBuilding.gameObject);
     }
 }

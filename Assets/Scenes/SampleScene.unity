@@ -167,11 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168cbe09c570e604982119670721e76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingData: []
-  _prefabHologram: {fileID: 0}
+  _buildingData:
+  - {fileID: 11400000, guid: 500410acade63284fa7e09d73656ef27, type: 2}
+  - {fileID: 11400000, guid: 5b21fc29af651d741b0a5c070c9e458a, type: 2}
+  - {fileID: 11400000, guid: 35b6f5ba67ab0364f9799632f5f51eb4, type: 2}
+  _prefabHologram: {fileID: 4451509798371098030, guid: 434cce9eb13463b4e9c0ac5b3602594f, type: 3}
   _maskMoveHologram:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!4 &355236
 Transform:
   m_ObjectHideFlags: 0
@@ -1141,6 +1144,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: MaxConnection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 232150405611800001, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1660,83 +1667,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629500772}
   m_CullTransparentMesh: 1
---- !u!1001 &711143454
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 739207969837786648, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_Name
-      value: pfUnit (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6.5699997
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: Charg
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: MaxEnergy
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: Conductivity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: MaxItemConnect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
-      propertyPath: MinEnergyToActive
-      value: 20
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
 --- !u!1 &766149878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,6 +2090,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: CurEnergy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: MaxConnection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 232150405611800000, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: _name
       value: Pillar
@@ -3526,11 +3464,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.09
+      value: -3.41
       objectReference: {fileID: 0}
     - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.5699997
+      value: -1.9300003
       objectReference: {fileID: 0}
     - target: {fileID: 739207969837786651, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3564,8 +3502,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 739207969837786654, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
+      propertyPath: _name
+      value: S
+      objectReference: {fileID: 0}
     - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: Charg
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
+      propertyPath: CurEnergy
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
@@ -3574,6 +3520,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: Conductivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
+      propertyPath: MaxConnection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}

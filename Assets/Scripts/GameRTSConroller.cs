@@ -79,7 +79,7 @@ public class GameRTSConroller : MonoBehaviour
             {
                 Vector3 moveToPosition = rayPos;
 
-                int num = 5;
+
                 List<Vector3> targetPositionList = GetPositionListAround(moveToPosition, new float[] { 2f, 2*2, 2*3}, new int[] {5, 10, 20});
 
                 int targetPositionListIndex = 0;

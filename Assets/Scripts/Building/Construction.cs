@@ -17,7 +17,7 @@ public class Construction : MonoBehaviour
     [SerializeField] private Transform _socketTransform;
 
     private Transform _transform;
-    private BoxCollider _boxCollider;
+    private BoxCollider2D _boxCollider;
 
     private MeshFilter _socketMeshFilter;
     private MeshRenderer _socketMeshRenderer;
@@ -26,7 +26,7 @@ public class Construction : MonoBehaviour
     private void Awake()
     {
         _transform = GetComponent<Transform>();
-        _boxCollider = GetComponent<BoxCollider>();
+        _boxCollider = GetComponent<BoxCollider2D>();
 
         _socketMeshFilter = _socketMesh.GetComponent<MeshFilter>();
         _socketMeshRenderer = _socketMesh.GetComponent<MeshRenderer>();
@@ -69,7 +69,7 @@ public class Construction : MonoBehaviour
         Collider2D[] _hitCollider = new Collider2D[2];
         while (true)
         {
-            Vector3 boxColliderPosition = _transform.position + _boxCollider.size;
+            Vector3 boxColliderPosition = (Vector2)_transform.position + _boxCollider.size;
             if (Physics2D.OverlapBoxNonAlloc(boxColliderPosition, _boxCollider.size / 2, 0, _hitCollider) >= 2)
             {
                 SetColorHologram(_obstacleColor);

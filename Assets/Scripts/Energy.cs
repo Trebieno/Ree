@@ -13,7 +13,7 @@ public class Energy : MonoBehaviour
     //public bool LowEnergy;
 
     [Header("Настройки объекта")]
-    [Range(1, 1000)] public int Conductivity = 0; //Электропроводимость
+    [Range(1, 1000)] public int Conductivity = 0; //Электропроводимость-прирост
     public int Voltage = 0;   //Напряжение
     public int MaxVoltage = 0;   //Максимальное Напряжение
     public int Discharge = 0;   //Саморазряд
@@ -21,34 +21,38 @@ public class Energy : MonoBehaviour
     [Header("Подключения")]
     public List<Transform> connection; // Подключённые к этому объекту объекты
     public List<LineController> ItemConnect;
-    public int MaxItemConnect = 0;
+    public int MaxItemConnect = 0; //Максимальное кол-во подкл. к другим объектам 
+    public int MaxConnection = 0; // Максимальное кол-во подкл. объектов к нему
 
 
     private void Start()
     {
         StartCoroutine(Discharging(gameObject.GetComponent<Energy>()));
     }
-
+    
     public void TransferEnergy(Energy StartObject, Energy EndObject)
     {
         if (StartObject.CurEnergy > 0)
         {
-            int addition = StartObject.SearchOfConnection(StartObject.connection).Count;
             if (StartObject.Conductivity >= EndObject.Conductivity)
             {
-                int difference = StartObject.Conductivity - EndObject.Conductivity;
-                StartObject.CurEnergy -= StartObject.Conductivity - difference;
-                EndObject.CurEnergy += StartObject.Conductivity - difference + addition; 
+                StartObject.CurEnergy -= EndObject.Conductivity;
+                EndObject.CurEnergy += EndObject.Conductivity; 
             }
 
             else if (StartObject.Conductivity <= EndObject.Conductivity)
             {
-                int difference = StartObject.Conductivity - EndObject.Conductivity;
-                StartObject.CurEnergy -= StartObject.Conductivity + difference;
-                EndObject.CurEnergy += StartObject.Conductivity + difference + addition;
+                StartObject.CurEnergy -= StartObject.Conductivity;
+                EndObject.CurEnergy += StartObject.Conductivity;
+            }
+
+            if (EndObject.CurEnergy > EndObject.MaxEnergy) 
+            { 
+                EndObject.CurEnergy = EndObject.MaxEnergy; 
             }
         }
     }
+
     //Возвращает время работы аккумулятора
     public int TimeToDischargeInSecond(int curEnergy, int voltage)
     {
@@ -63,13 +67,12 @@ public class Energy : MonoBehaviour
         gameObject.CurEnergy -= Discharge;
         StartCoroutine(Discharging(gameObject));
     }
-    
+
     //Зарядка объекта
     public IEnumerator Charging(Energy lowEnergy, Energy accumulator)
     {
         yield return new WaitForSeconds(1f);
-        
-        if (CurEnergy < MinEnergyToActive && CurEnergy < MaxEnergy)
+        if (accumulator.ItemConnect.Find(line => line.point == lowEnergy.GetComponent<Transform>()) && CurEnergy < MaxEnergy)
         {
             TransferEnergy(accumulator, lowEnergy);
             StartCoroutine(Charging(lowEnergy, accumulator));
@@ -80,33 +83,7 @@ public class Energy : MonoBehaviour
     {
         StopAllCoroutines();
     }
-    
-    public List<Transform> SearchOfConnection(List<Transform> connection)
-    {
-        if (1 < connection.Count)
-        {
-            
-            foreach (Transform i1 in connection)
-            {
-                foreach (Transform i2 in this.connection)
-                {
-                    bool same = false;
-                    if (i1 == i2) same = true;
-                    if (!same)
-                    {
-                        //this.connection.Add(i1);
-                        SearchOfConnection(this.connection);
-                    }
-                }
-            }
-        }
-        else if(0 < connection.Count)
-        {
-            //this.connection.Add(connection[0]);
-            SearchOfConnection(this.connection);
-        }
-        return this.connection;
-    }
+
 
     // Взаимодействие с подключённым проводом
 
@@ -118,10 +95,5 @@ public class Energy : MonoBehaviour
     public void Disconnection(Transform point)
     {
         gameObject.GetComponent<Energy>().connection.Remove(point);
-    }
-
-    public List<Transform> ReturnConnectCable()
-    {
-        return connection;
     }
 }

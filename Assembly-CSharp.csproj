@@ -57,22 +57,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Energy.cs" />
-    <Compile Include="Assets\Scripts\Building\Buildings\Mechanism\Cable\LineController.cs" />
-    <Compile Include="Assets\Scripts\RTS Controlls\MoveVelocity.cs" />
-    <Compile Include="Assets\Scripts\GameRTSConroller.cs" />
-    <Compile Include="Assets\Scripts\Building\Buildings\Mechanism\Cable\Pillar.cs" />
-    <Compile Include="Assets\Scripts\RTS Controlls\UnitRTS.cs" />
-    <Compile Include="Assets\Scripts\Building\Construction.cs" />
-    <Compile Include="Assets\Scripts\RTS Controlls\IMovePosition.cs" />
-    <Compile Include="Assets\Scripts\Building\Buildings\Mechanism\Accumulator.cs" />
     <Compile Include="Assets\Scripts\RTS Controlls\IMoveVelocity.cs" />
     <Compile Include="Assets\Scripts\Static.cs" />
     <Compile Include="Assets\Scripts\ShopBuilding.cs" />
+    <Compile Include="Assets\Scripts\Building\Buildings\Mechanism\Cable\LineController.cs" />
     <Compile Include="Assets\Scripts\Building\Buildings\Mechanism\Base.cs" />
     <Compile Include="Assets\Scripts\Building\Structure.cs" />
+    <Compile Include="Assets\Scripts\RTS Controlls\MoveVelocity.cs" />
     <Compile Include="Assets\Scripts\ShopBuildingDATA.cs" />
     <Compile Include="Assets\Scripts\RTS Controlls\MovePositionDirect.cs" />
+    <Compile Include="Assets\Scripts\GameRTSConroller.cs" />
+    <Compile Include="Assets\Scripts\Building\Buildings\Mechanism\Cable\Pillar.cs" />
+    <Compile Include="Assets\Scripts\RTS Controlls\UnitRTS.cs" />
     <Compile Include="Assets\Scripts\PlayerActions.cs" />
+    <Compile Include="Assets\Scripts\Building\Construction.cs" />
+    <Compile Include="Assets\Scripts\RTS Controlls\IMovePosition.cs" />
+    <Compile Include="Assets\Scripts\Building\Buildings\Mechanism\Accumulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -319,9 +319,6 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>D:\UnityEditor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.6\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\UnityEditor\2020.3.33f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
@@ -668,14 +665,8 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:\UnityEditor\2020.3.33f1\Editor\Data\NetStandard\compat\2.0.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Flow.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Shared.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
@@ -689,20 +680,8 @@
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Core.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.State.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Flow">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -715,12 +694,6 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.State">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Core">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

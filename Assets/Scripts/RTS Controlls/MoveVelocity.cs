@@ -9,7 +9,7 @@ public class MoveVelocity : MonoBehaviour, IMoveVelocity {
     [SerializeField] private float moveSpeed;
 
     private Vector3 velocityVector;
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
 
     private void Awake() {
         rigidbody2D = GetComponent<Rigidbody2D>();

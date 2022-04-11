@@ -94,7 +94,7 @@ public class Energy : MonoBehaviour
                     if (i1 == i2) same = true;
                     if (!same)
                     {
-                        this.connection.Add(i1);
+                        //this.connection.Add(i1);
                         SearchOfConnection(this.connection);
                     }
                 }
@@ -102,7 +102,7 @@ public class Energy : MonoBehaviour
         }
         else if(0 < connection.Count)
         {
-            this.connection.Add(connection[0]);
+            //this.connection.Add(connection[0]);
             SearchOfConnection(this.connection);
         }
         return this.connection;
@@ -112,12 +112,12 @@ public class Energy : MonoBehaviour
 
     public void Connection(Transform point)
     {
-        point.GetComponent<Energy>().connection.Add(point);
+        gameObject.GetComponent<Energy>().connection.Add(point);
     }
 
     public void Disconnection(Transform point)
     {
-        point.GetComponent<Energy>().connection.Remove(point);
+        gameObject.GetComponent<Energy>().connection.Remove(point);
     }
 
     public List<Transform> ReturnConnectCable()

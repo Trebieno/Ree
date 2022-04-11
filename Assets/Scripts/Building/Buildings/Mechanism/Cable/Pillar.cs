@@ -21,6 +21,7 @@ public class Pillar : Structure
         energy = GetComponent<Energy>();
     }
 
+    
     private void FixedUpdate()
     {
         _nearestObjects = _allObjects.GetComponent<PlayerActions>().ConnectingToDataBase(gameObject);
@@ -30,7 +31,6 @@ public class Pillar : Structure
             foreach (GameObject item in _nearestObjects)
             {
                 ConnectionCable(item.transform);
-                
             }
         }
         
@@ -49,51 +49,45 @@ public class Pillar : Structure
 
     private void ConnectionCable(Transform point)
     {
-        Energy energy = point.GetComponent<Energy>();
-        if (energy == null || energy.ItemConnect.Count >= energy.MaxItemConnect || _cables.Count >= energy.MaxItemConnect)
-        {
-            return;
-        }
-        foreach (LineController item in _cables) {  if (item.point == point) return;  }
-        foreach (Transform item in this.energy.connection)  {  if (item == point) return;        }
+        Energy energyPoint = point.GetComponent<Energy>();
+        if (energyPoint == null || energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect || _cables.Count >= energyPoint.MaxItemConnect)
+                                                                { return; }
+        if (_cables.Any(line => line.point == point))           { return; }
+        if (energy.connection.Any(item => item == point))       { return; }
+        if (point == gameObject.transform)                      { return; }
 
-        if (point != gameObject.transform)
-        {
-            Debug.Log("Подключаю кабель");
-            LineController cable = Instantiate(_prefubCable, transform.position, transform.rotation).GetComponent<LineController>();
-            energy.ItemConnect.Add(cable);
 
-            cable.point = point;
-            cable.pillar = gameObject.transform;
-            _cables.Add(cable);
-            _points.Add(point);
+        Debug.Log("Подключаю кабель");
+        LineController cable = Instantiate(_prefubCable, transform.position, transform.rotation).GetComponent<LineController>();
+        cable.point = point;
 
-            cable.Connection();
-            if (energy != null) energy.Connection(gameObject.transform);
+        _cables.Add(cable);
+        _points.Add(point);
 
-            StartCoroutine(energy.Charging(energy, this.energy));
-        }
+        energy.ItemConnect.Add(cable);
+        cable.Connection();
+        
+        energyPoint.Connection(gameObject.transform);
+        StartCoroutine(energyPoint.Charging(energyPoint, energy));
     }
 
     private void DisconnectionCable(Transform point)
     {
-        Energy energy = point.GetComponent<Energy>();
-        foreach (LineController item in _cables)
+        Energy energyPoint = point.GetComponent<Energy>();
+
+        if (_cables.Any(line => line.point == point))
         {
-            if (item.point == point)
-            {
-                point.GetComponent<Energy>().ItemConnect.Remove(item);
-                int index = _points.IndexOf(point);
-                _cables[index].DestroyLine();
-                _points.RemoveAt(index);
-                _cables.RemoveAt(index);
+            int index = _points.IndexOf(point);
+            energy.ItemConnect.RemoveAt(index);
+            _cables[index].DestroyLine();
+            _cables.RemoveAt(index);
+            
+            _points.RemoveAt(index);
+            
 
-                if (energy != null) energy.Disconnection(gameObject.transform);
+            if (energyPoint != null) energyPoint.Disconnection(gameObject.transform);
 
-                energy.StopCharging();
-
-                return;
-            }
+            energyPoint.StopCharging();
         }
     }
 }

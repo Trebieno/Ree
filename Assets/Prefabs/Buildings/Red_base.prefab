@@ -274,10 +274,11 @@ MonoBehaviour:
   Voltage: 0
   MaxVoltage: 0
   Discharge: 0
-  connection: []
+  Connects: []
   ItemConnect: []
-  MaxItemConnect: 0
+  MaxItemConnect: 1
   MaxConnection: 1
+  id: 0
 --- !u!114 &8930461967721601281
 MonoBehaviour:
   m_ObjectHideFlags: 0

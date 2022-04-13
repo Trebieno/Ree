@@ -19,9 +19,9 @@ public class Pillar : Structure
     {
         _allObjects = GameObject.FindGameObjectWithTag("GameWorld");
         _energy = GetComponent<Energy>();
+        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(_energy);
     }
 
-    
     private void FixedUpdate()
     {
         _nearestObjects = _allObjects.GetComponent<PlayerActions>().ConnectingToDataBase(gameObject);
@@ -52,10 +52,11 @@ public class Pillar : Structure
         Energy energyPoint = point.GetComponent<Energy>();
         if (energyPoint == null)                                { return; }
         if (_cables.Any(line => line.point == point))           { return; }
-        if (_energy.connection.Any(item => item == point))      { return; }
+        if (_energy.Connects.Any(item => item == point))        { return; }
         if (point == gameObject.transform)                      { return; }
-        if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect) { return; }
-        if (energyPoint.connection.Count >= energyPoint.MaxConnection)   { return; }
+        if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect){ return; }
+        if (energyPoint.Connects.Count >= energyPoint.MaxConnection)    { return; }
+        if (_energy.ItemConnect.Count >= _energy.MaxItemConnect)        { return; }
         
 
         LineController cable = Instantiate(_prefubCable, transform.position, transform.rotation).GetComponent<LineController>();
@@ -68,7 +69,9 @@ public class Pillar : Structure
         cable.Connection();
         
         energyPoint.Connection(gameObject.transform);
+        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energyPoint);
         StartCoroutine(energyPoint.Charging(energyPoint, _energy));
+
     }
 
     private void DisconnectionCable(Transform point)

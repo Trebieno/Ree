@@ -19,11 +19,11 @@ public class Energy : MonoBehaviour
     public int Discharge = 0;   //Саморазряд
 
     [Header("Подключения")]
-    public List<Transform> connection; // Подключённые к этому объекту объекты
+    public List<Transform> Connects; // Подключённые к этому объекту объекты
     public List<LineController> ItemConnect;
     public int MaxItemConnect = 0; //Максимальное кол-во подкл. к другим объектам 
     public int MaxConnection = 0; // Максимальное кол-во подкл. объектов к нему
-
+    public int Id = 0;
 
     private void Start()
     {
@@ -84,16 +84,15 @@ public class Energy : MonoBehaviour
         StopAllCoroutines();
     }
 
-
     // Взаимодействие с подключённым проводом
 
     public void Connection(Transform point)
     {
-        gameObject.GetComponent<Energy>().connection.Add(point);
+        gameObject.GetComponent<Energy>().Connects.Add(point);
     }
 
     public void Disconnection(Transform point)
     {
-        gameObject.GetComponent<Energy>().connection.Remove(point);
+        gameObject.GetComponent<Energy>().Connects.Remove(point);
     }
 }

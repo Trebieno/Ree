@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _otherObjects: []
   _nearestObjects: []
+  _energyNetwork: []
 --- !u!114 &355235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,7 +1147,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: MaxConnection
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 232150405611800001, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: m_RootOrder
@@ -2096,7 +2097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: MaxConnection
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 232150405611800000, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: _name

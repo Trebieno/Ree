@@ -59,7 +59,7 @@ MonoBehaviour:
   connection: []
   ItemConnect: []
   MaxItemConnect: 3
-  MaxConnection: 1
+  MaxConnection: 2
 --- !u!114 &232150405611800000
 MonoBehaviour:
   m_ObjectHideFlags: 0

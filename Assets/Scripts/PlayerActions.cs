@@ -91,7 +91,6 @@ public class PlayerActions : MonoBehaviour
                 data = _energyNetwork.Find(item => item.Id == gObject.Id);
                 int index = _energyNetwork.IndexOf(data);
                 _energyNetwork[index].Network.Add(gObject.GetComponent<Transform>());
-                _energyNetwork[index].Network = _energyNetwork[index].Network.Distinct().ToList();
             }
         }
 
@@ -106,31 +105,35 @@ public class PlayerActions : MonoBehaviour
                 data = _energyNetwork.Find(item => item.Id == gObject.Id);
                 int index = _energyNetwork.IndexOf(data);
                 _energyNetwork[index].Network.Add(gObject.GetComponent<Transform>());
-                _energyNetwork[index].Network = _energyNetwork[index].Network.Distinct().ToList();
             }
         }
 
+        Sorting(_energyNetwork);
+    }
+
+
+    static private void Sorting(List<DataBaseNetwork> _energyNetwork)
+    {
         for (int i1 = 0; i1 < _energyNetwork.Count; i1++)
         {
+            _energyNetwork[i1].Network = _energyNetwork[i1].Network.Distinct().ToList();
             for (int i2 = 0; i2 < _energyNetwork[i1].Network.Count; i2++)
             {
                 for (int i3 = 0; i3 < _energyNetwork.Count; i3++)
                 {
                     for (int i4 = 0; i4 < _energyNetwork[i3].Network.Count; i4++)
                     {
-
                         if (_energyNetwork[i1] != _energyNetwork[i3])
                         {
                             if (_energyNetwork[i1].Network[i2] == _energyNetwork[i3].Network[i4])
                             {
                                 _energyNetwork.RemoveAt(i3);
+                                break;
                             }
                         }
                     }
                 }
             }
         }
-
-
     }
 }

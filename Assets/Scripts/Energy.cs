@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Energy : MonoBehaviour
 {
-    [Header("Энергия")]
-    public int MinEnergyToActive = 0; // Минимальное количество энергии для работы (да
+    [Header("Р­РЅРµСЂРіРёСЏ")]
+    public int MinEnergyToActive = 0; // РњРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌРЅРµСЂРіРёРё РґР»СЏ СЂР°Р±РѕС‚С‹ (РґР°
     public int CurEnergy = 0;
     public int MaxEnergy = 0;
 
-    public bool Charg = false; //Зарядка
+    public bool Charg = false; //Р—Р°СЂСЏРґРєР°
     //public bool LowEnergy;
 
-    [Header("Настройки объекта")]
-    [Range(1, 1000)] public int Conductivity = 0; //Электропроводимость-прирост
-    public int Voltage = 0;   //Напряжение
-    public int MaxVoltage = 0;   //Максимальное Напряжение
-    public int Discharge = 0;   //Саморазряд
+    [Header("РќР°СЃС‚СЂРѕР№РєРё РѕР±СЉРµРєС‚Р°")]
+    [Range(1, 1000)] public int Conductivity = 0; //Р­Р»РµРєС‚СЂРѕРїСЂРѕРІРѕРґРёРјРѕСЃС‚СЊ-РїСЂРёСЂРѕСЃС‚
+    public int Voltage = 0;   //РќР°РїСЂСЏР¶РµРЅРёРµ
+    public int MaxVoltage = 0;   //РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РќР°РїСЂСЏР¶РµРЅРёРµ
+    public int Discharge = 0;   //РЎР°РјРѕСЂР°Р·СЂСЏРґ
 
-    [Header("Подключения")]
-    public List<Transform> Connects; // Подключённые к этому объекту объекты
+    [Header("РџРѕРґРєР»СЋС‡РµРЅРёСЏ")]
+    public List<Transform> Connects; // РџРѕРґРєР»СЋС‡С‘РЅРЅС‹Рµ Рє СЌС‚РѕРјСѓ РѕР±СЉРµРєС‚Сѓ РѕР±СЉРµРєС‚С‹
     public List<LineController> ItemConnect;
-    public int MaxItemConnect = 0; //Максимальное кол-во подкл. к другим объектам 
-    public int MaxConnection = 0; // Максимальное кол-во подкл. объектов к нему
+    public int MaxItemConnect = 0; //РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ РїРѕРґРєР». Рє РґСЂСѓРіРёРј РѕР±СЉРµРєС‚Р°Рј 
+    public int MaxConnection = 0; // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ РїРѕРґРєР». РѕР±СЉРµРєС‚РѕРІ Рє РЅРµРјСѓ
     public int Id = 0;
 
     private void Start()
@@ -53,14 +53,14 @@ public class Energy : MonoBehaviour
         }
     }
 
-    //Возвращает время работы аккумулятора
+    //Р’РѕР·РІСЂР°С‰Р°РµС‚ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹ Р°РєРєСѓРјСѓР»СЏС‚РѕСЂР°
     public int TimeToDischargeInSecond(int curEnergy, int voltage)
     {
-        //Время работы аккумулятора = (10 * емкость батареи) / напряжение   --- (В ЧАСАХ)
+        //Р’СЂРµРјСЏ СЂР°Р±РѕС‚С‹ Р°РєРєСѓРјСѓР»СЏС‚РѕСЂР° = (10 * РµРјРєРѕСЃС‚СЊ Р±Р°С‚Р°СЂРµРё) / РЅР°РїСЂСЏР¶РµРЅРёРµ   --- (Р’ Р§РђРЎРђРҐ)
         return (10 * curEnergy) / voltage * 60 * 60;
     }
 
-    //Саморазрадка со временем
+    //РЎР°РјРѕСЂР°Р·СЂР°РґРєР° СЃРѕ РІСЂРµРјРµРЅРµРј
     public IEnumerator Discharging(Energy gameObject)
     {
         yield return new WaitForSeconds(1f);
@@ -68,7 +68,7 @@ public class Energy : MonoBehaviour
         StartCoroutine(Discharging(gameObject));
     }
 
-    //Зарядка объекта
+    //Р—Р°СЂСЏРґРєР° РѕР±СЉРµРєС‚Р°
     public IEnumerator Charging(Energy lowEnergy, Energy accumulator)
     {
         yield return new WaitForSeconds(1f);
@@ -84,7 +84,7 @@ public class Energy : MonoBehaviour
         StopAllCoroutines();
     }
 
-    // Взаимодействие с подключённым проводом
+    // Р’Р·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЃ РїРѕРґРєР»СЋС‡С‘РЅРЅС‹Рј РїСЂРѕРІРѕРґРѕРј
 
     public void Connection(Transform point)
     {

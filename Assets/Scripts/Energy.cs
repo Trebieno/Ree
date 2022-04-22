@@ -5,7 +5,7 @@ using UnityEngine;
 public class Energy : MonoBehaviour
 {
     [Header("Энергия")]
-    public int MinEnergyToActive = 0; //Миинимальное количество энергии для работы
+    public int MinEnergyToActive = 0; //Минимальное количество энергии для работы
     public int CurEnergy = 0;
     public int MaxEnergy = 0;
 

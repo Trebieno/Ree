@@ -1146,6 +1146,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: Connect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: MaxConnection
       value: 2
       objectReference: {fileID: 0}
@@ -2091,6 +2095,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: Connect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: CurEnergy
       value: 0
@@ -3509,6 +3517,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: Charg
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
+      propertyPath: Connect
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}

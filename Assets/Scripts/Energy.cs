@@ -5,12 +5,12 @@ using UnityEngine;
 public class Energy : MonoBehaviour
 {
     [Header("Энергия")]
-    public int MinEnergyToActive = 0; // Минимальное количество энергии для работы (да
+    public int MinEnergyToActive = 0; // Минимальное количество энергии для работы 
     public int CurEnergy = 0;
     public int MaxEnergy = 0;
 
     public bool Charg = false; //Зарядка
-    //public bool LowEnergy;
+    public bool Connect = false; // Может ли объект к что-то подключать к себе создавая новую сеть
 
     [Header("Настройки объекта")]
     [Range(1, 1000)] public int Conductivity = 0; //Электропроводимость-прирост
@@ -19,10 +19,8 @@ public class Energy : MonoBehaviour
     public int Discharge = 0;   //Саморазряд
 
     [Header("Подключения")]
-    public List<Transform> Connects; // Подключённые к этому объекту объекты
     public List<LineController> ItemConnect;
     public int MaxItemConnect = 0; //Максимальное кол-во подкл. к другим объектам 
-    public int MaxConnection = 0; // Максимальное кол-во подкл. объектов к нему
     public int Id = 0;
 
     private void Start()
@@ -82,17 +80,5 @@ public class Energy : MonoBehaviour
     public void StopCharging()
     {
         StopAllCoroutines();
-    }
-
-    // Взаимодействие с подключённым проводом
-
-    public void Connection(Transform point)
-    {
-        gameObject.GetComponent<Energy>().Connects.Add(point);
-    }
-
-    public void Disconnection(Transform point)
-    {
-        gameObject.GetComponent<Energy>().Connects.Remove(point);
     }
 }

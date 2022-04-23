@@ -50,14 +50,19 @@ public class Pillar : Structure
     private void ConnectionCable(Transform point)
     {
         Energy energyPoint = point.GetComponent<Energy>();
-        if (energyPoint == null)                                { return; }
-        if (_cables.Any(line => line.point == point))           { return; }
-        if (_energy.Connects.Any(item => item == point))        { return; }
-        if (point == gameObject.transform)                      { return; }
-        if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect){ return; }
-        if (energyPoint.Connects.Count >= energyPoint.MaxConnection)    { return; }
-        if (_energy.ItemConnect.Count >= _energy.MaxItemConnect)        { return; }
-        
+        if (energyPoint == null)                                            { return; }
+        if (_cables.Any(line => line.point == point))                       { return; }
+        if (point == gameObject.transform)                                  { return; }
+        if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect)    { return; }
+        if (_energy.ItemConnect.Count >= _energy.MaxItemConnect)            { return; }
+
+        if (_allObjects.GetComponent<PlayerActions>().SearchGameNetwork(_energy, energyPoint)) { return; }
+        if (!_allObjects.GetComponent<PlayerActions>().SearchGameNetwork(_energy, energyPoint)) 
+        {
+            _allObjects.GetComponent<PlayerActions>().MergerNetworks(_energy, energyPoint);
+        }
+
+
 
         LineController cable = Instantiate(_prefubCable, transform.position, transform.rotation).GetComponent<LineController>();
         cable.point = point;
@@ -68,10 +73,8 @@ public class Pillar : Structure
         _energy.ItemConnect.Add(cable);
         cable.Connection();
         
-        energyPoint.Connection(gameObject.transform);
         _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energyPoint);
         StartCoroutine(energyPoint.Charging(energyPoint, _energy));
-
     }
 
     private void DisconnectionCable(Transform point)
@@ -87,8 +90,9 @@ public class Pillar : Structure
             
             _points.RemoveAt(index);
 
+            
             energyPoint.StopCharging();
-            energyPoint.Disconnection(gameObject.transform);
+            _allObjects.GetComponent<PlayerActions>().EnergyNetworkExit(_energy, energyPoint);
         }
     }
 }

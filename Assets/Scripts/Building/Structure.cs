@@ -8,14 +8,17 @@ public class Structure : MonoBehaviour
     [SerializeField] private string _name;
     [SerializeField] private GameObject _prefubUnit;
 
-    [SerializeField] private int _curHealth;
-    [SerializeField] private int _maxHealth;
+    [SerializeField] protected int _curHealth;
+    [SerializeField] protected int _maxHealth;
 
-    [SerializeField] private bool _making = false;
-    [SerializeField] private bool _spawningUnits;
+    [SerializeField] protected bool _making = false;
+    [SerializeField] protected bool _spawningUnits;
+
+    [SerializeField] protected Energy Energy;
 
     private void Start()
     {
+        Energy = GetComponent<Energy>();
         if (_making && _spawningUnits) StartCoroutine(SpawnUnit());
     }
 

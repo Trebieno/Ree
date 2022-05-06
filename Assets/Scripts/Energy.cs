@@ -10,7 +10,6 @@ public class Energy : MonoBehaviour
     public int MaxEnergy = 0;
 
     public bool Charg = false; //Зарядка
-    public bool Connect = false; // Может ли объект к что-то подключать к себе создавая новую сеть
 
     [Header("Настройки объекта")]
     [Range(1, 1000)] public int Conductivity = 0; //Электропроводимость-прирост
@@ -22,12 +21,18 @@ public class Energy : MonoBehaviour
     public List<LineController> ItemConnect;
     public int MaxItemConnect = 0; //Максимальное кол-во подкл. к другим объектам 
     public int Id = 0;
+    public bool Connect = false; // Может ли объект к что-то подключать к себе создавая новую сеть
+
+    public GameObject _allObjects;
 
     private void Start()
     {
-        StartCoroutine(Discharging(gameObject.GetComponent<Energy>()));
+        _allObjects = GameObject.FindGameObjectWithTag("GameWorld");
+        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(GetComponent<Energy>());
+
+        //StartCoroutine(Discharging(gameObject.GetComponent<Energy>()));
     }
-    
+
     public void TransferEnergy(Energy StartObject, Energy EndObject)
     {
         if (StartObject.CurEnergy > 0)

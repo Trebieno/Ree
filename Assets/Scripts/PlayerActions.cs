@@ -53,7 +53,7 @@ public class PlayerActions : MonoBehaviour
 
     public List<GameObject> ConnectingToDataBase(GameObject Object)
     {
-        //Debug.Log("Поделючаюсь к базе");
+        //Debug.Log("РџРѕРґРµР»СЋС‡Р°СЋСЃСЊ Рє Р±Р°Р·Рµ");
         _nearestObjects = _otherObjects.Where(x => Vector3.Distance(Object.transform.position, x.transform.position) < 8f).ToList();
         _nearestObjects = _nearestObjects.OrderBy(x => Vector3.Distance(Object.transform.position, x.transform.position)).ToList();
 
@@ -63,7 +63,7 @@ public class PlayerActions : MonoBehaviour
 
     public void EnergyNetworkAnalysis(Energy gObject)
     {
-        if (gObject.ItemConnect.Count == 0 && gObject.Connect)
+        if (gObject.ItemConnect.Count == 0)
         {
             gObject.Id = 1;
             int index = 0;
@@ -98,13 +98,13 @@ public class PlayerActions : MonoBehaviour
         Sorting(_energyNetwork);
     }
 
-    // Сортирует базу сетей _energyNetwork
+    // РЎРѕСЂС‚РёСЂСѓРµС‚ Р±Р°Р·Сѓ СЃРµС‚РµР№ _energyNetwork
     private void Sorting(List<DataBaseNetwork> _energyNetwork)
     {
         for (int i1 = 0; i1 < _energyNetwork.Count; i1++)
         {
-            if (_energyNetwork[i1].Network.Count == 0)
-                _energyNetwork.RemoveAt(i1);
+            //if (_energyNetwork[i1].Network.Count == 0)
+              //  _energyNetwork.RemoveAt(i1);
 
             _energyNetwork[i1].Network = _energyNetwork[i1].Network.Distinct().ToList();
             for (int i2 = 0; i2 < _energyNetwork[i1].Network.Count; i2++)
@@ -118,11 +118,11 @@ public class PlayerActions : MonoBehaviour
                             if (_energyNetwork[i1].Network[i2] == _energyNetwork[i3].Network[i4])
                             {
                                 MergerNetworks(_energyNetwork[i1].Network[i2].GetComponent<Energy>(), _energyNetwork[i3].Network[i4].GetComponent<Energy>());
-                                if (_energyNetwork[i3].Network.Count == 0 || _energyNetwork[i3].Network.Count == 1)
-                                {
-                                    _energyNetwork.RemoveAt(i3);
-                                    _energyNetwork[i3].Network.RemoveAt(i4);
-                                }
+                                //if (_energyNetwork[i3].Network.Count == 0 || _energyNetwork[i3].Network.Count == 1)
+                                //{
+                                  //  _energyNetwork.RemoveAt(i3);
+                                    //_energyNetwork[i3].Network.RemoveAt(i4);
+                                //}
                                 
                             }
                             break;
@@ -132,7 +132,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
     }
-    // Поиск игрового объекта в сети. Возвращает true если объект 2 есть в сети с объектом 1
+    // РџРѕРёСЃРє РёРіСЂРѕРІРѕРіРѕ РѕР±СЉРµРєС‚Р° РІ СЃРµС‚Рё. Р’РѕР·РІСЂР°С‰Р°РµС‚ true РµСЃР»Рё РѕР±СЉРµРєС‚ 2 РµСЃС‚СЊ РІ СЃРµС‚Рё СЃ РѕР±СЉРµРєС‚РѕРј 1
     public bool SearchGameNetwork(Energy gObject1, Energy gObject2)
     {
         if (_energyNetwork.Any(item => item.Id == gObject1.Id))
@@ -144,7 +144,7 @@ public class PlayerActions : MonoBehaviour
         return false;
     }
 
-    // Слияние сетей: сеть объектов из gObj2 переходит в gObj1
+    // РЎР»РёСЏРЅРёРµ СЃРµС‚РµР№: СЃРµС‚СЊ РѕР±СЉРµРєС‚РѕРІ РёР· gObj2 РїРµСЂРµС…РѕРґРёС‚ РІ gObj1
     public void MergerNetworks(Energy gObject1, Energy gObject2) 
     {
         int index1 = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
@@ -161,7 +161,7 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    // Выход 2 из 1
+    // Р’С‹С…РѕРґ 2 РёР· 1
     public void EnergyNetworkExit(Energy gObject1, Energy gObject2)
     {
         int index = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);

@@ -10,21 +10,16 @@ public class Pillar : Structure
     [SerializeField] private List<Transform> _points;
     [SerializeField] private List<LineController> _cables;
     [SerializeField] private List<GameObject> _nearestObjects;
-    [SerializeField] private GameObject _allObjects;
-
-    private Energy _energy;
-
 
     private void Start()
     {
-        _allObjects = GameObject.FindGameObjectWithTag("GameWorld");
-        _energy = GetComponent<Energy>();
-        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(_energy);
+        Energy._allObjects = GameObject.FindGameObjectWithTag("GameWorld");
+        Energy._allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(Energy);
     }
 
     private void FixedUpdate()
     {
-        _nearestObjects = _allObjects.GetComponent<PlayerActions>().ConnectingToDataBase(gameObject);
+        _nearestObjects = Energy._allObjects.GetComponent<PlayerActions>().ConnectingToDataBase(gameObject);
 
         if (_nearestObjects.Count > 0)
         {
@@ -54,13 +49,12 @@ public class Pillar : Structure
         if (_cables.Any(line => line.point == point))                       { return; }
         if (point == gameObject.transform)                                  { return; }
         if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect)    { return; }
-        if (_energy.ItemConnect.Count >= _energy.MaxItemConnect)            { return; }
+        if (Energy.ItemConnect.Count >= Energy.MaxItemConnect)            { return; }
 
-        if (_allObjects.GetComponent<PlayerActions>().SearchGameNetwork(_energy, energyPoint)) { return; }
-        if (!_allObjects.GetComponent<PlayerActions>().SearchGameNetwork(_energy, energyPoint)) 
-        {
-            _allObjects.GetComponent<PlayerActions>().MergerNetworks(_energy, energyPoint);
-        }
+        if (Energy._allObjects.GetComponent<PlayerActions>().SearchGameNetwork(Energy, energyPoint)) { return; }
+
+        if (!Energy._allObjects.GetComponent<PlayerActions>().SearchGameNetwork(Energy, energyPoint))
+            Energy._allObjects.GetComponent<PlayerActions>().MergerNetworks(Energy, energyPoint);
 
 
 
@@ -70,11 +64,11 @@ public class Pillar : Structure
         _cables.Add(cable);
         _points.Add(point);
 
-        _energy.ItemConnect.Add(cable);
+        Energy.ItemConnect.Add(cable);
         cable.Connection();
-        
-        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energyPoint);
-        StartCoroutine(energyPoint.Charging(energyPoint, _energy));
+
+        Energy.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energyPoint);
+        StartCoroutine(energyPoint.Charging(energyPoint, Energy));
     }
 
     private void DisconnectionCable(Transform point)
@@ -84,7 +78,7 @@ public class Pillar : Structure
         if (_cables.Any(line => line.point == point))
         {
             int index = _points.IndexOf(point);
-            _energy.ItemConnect.RemoveAt(index);
+            Energy.ItemConnect.RemoveAt(index);
             _cables[index].DestroyLine();
             _cables.RemoveAt(index);
             
@@ -92,7 +86,7 @@ public class Pillar : Structure
 
             
             energyPoint.StopCharging();
-            _allObjects.GetComponent<PlayerActions>().EnergyNetworkExit(_energy, energyPoint);
+            Energy._allObjects.GetComponent<PlayerActions>().EnergyNetworkExit(Energy, energyPoint);
         }
     }
 }

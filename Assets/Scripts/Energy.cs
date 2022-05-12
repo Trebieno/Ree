@@ -22,15 +22,16 @@ public class Energy : MonoBehaviour
     public int MaxItemConnect = 0; //Максимальное кол-во подкл. к другим объектам 
     public int Id = 0;
     public bool Connect = false; // Может ли объект к что-то подключать к себе создавая новую сеть
-
-    public GameObject _allObjects;
+    
 
     private void Start()
-    {
-        _allObjects = GameObject.FindGameObjectWithTag("GameWorld");
-        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(GetComponent<Energy>());
-
+    { 
         //StartCoroutine(Discharging(gameObject.GetComponent<Energy>()));
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     public void TransferEnergy(Energy StartObject, Energy EndObject)

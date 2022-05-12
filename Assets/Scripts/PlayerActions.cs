@@ -63,7 +63,8 @@ public class PlayerActions : MonoBehaviour
 
     public void EnergyNetworkAnalysis(Energy gObject)
     {
-        if (gObject.ItemConnect.Count == 0)
+        
+        if (gObject.ItemConnect.Count == 0 && !SearchGameNetwork(gObject)) 
         {
             gObject.Id = 1;
             int index = 0;
@@ -71,20 +72,19 @@ public class PlayerActions : MonoBehaviour
             {
                 if (_energyNetwork.Any(item => item.Id == gObject.Id))
                     gObject.Id++;
-                else return;
+                else break;
                 index++;
             }
             DataBaseNetwork data = new DataBaseNetwork();
             data.Id = gObject.Id;
             data.Network.Add(gObject.GetComponent<Transform>());
-
             _energyNetwork.Add(data);
+            return;
         }
 
-        if (gObject.ItemConnect.Count > 0)
+        if (SearchGameNetwork(gObject))
         {
             gObject.Id = gObject.ItemConnect[0].point.GetComponent<Energy>().Id;
-
             DataBaseNetwork data = new DataBaseNetwork();
 
             if (_energyNetwork.Any(item => item.Id == gObject.Id))
@@ -95,6 +95,11 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
+        if(gObject.ItemConnect.Count > 0)
+        {
+
+        }
+
         Sorting(_energyNetwork);
     }
 
@@ -103,8 +108,8 @@ public class PlayerActions : MonoBehaviour
     {
         for (int i1 = 0; i1 < _energyNetwork.Count; i1++)
         {
-            //if (_energyNetwork[i1].Network.Count == 0)
-              //  _energyNetwork.RemoveAt(i1);
+            if (_energyNetwork[i1].Network.Count == 0)
+              //_energyNetwork.RemoveAt(i1);
 
             _energyNetwork[i1].Network = _energyNetwork[i1].Network.Distinct().ToList();
             for (int i2 = 0; i2 < _energyNetwork[i1].Network.Count; i2++)
@@ -117,13 +122,12 @@ public class PlayerActions : MonoBehaviour
                         {
                             if (_energyNetwork[i1].Network[i2] == _energyNetwork[i3].Network[i4])
                             {
-                                MergerNetworks(_energyNetwork[i1].Network[i2].GetComponent<Energy>(), _energyNetwork[i3].Network[i4].GetComponent<Energy>());
-                                //if (_energyNetwork[i3].Network.Count == 0 || _energyNetwork[i3].Network.Count == 1)
-                                //{
-                                  //  _energyNetwork.RemoveAt(i3);
+                                //MergerNetworks(_energyNetwork[i1].Network[i2].GetComponent<Energy>(), _energyNetwork[i3].Network[i4].GetComponent<Energy>());
+                                if (_energyNetwork[i3].Network.Count == 0 || _energyNetwork[i3].Network.Count == 1)
+                                {
+                                    _energyNetwork.RemoveAt(i3);
                                     //_energyNetwork[i3].Network.RemoveAt(i4);
-                                //}
-                                
+                                }
                             }
                             break;
                         }
@@ -144,6 +148,18 @@ public class PlayerActions : MonoBehaviour
         return false;
     }
 
+    // Возвращает true если объект есть в какой-то сети
+    public bool SearchGameNetwork(Energy gObject)
+    {
+        if (_energyNetwork.Any(item => item.Id == gObject.Id))
+        {
+            int index = _energyNetwork.FindIndex(item => item.Id == gObject.Id);
+            if (_energyNetwork[index].Network.Any(item => item.GetComponent<Transform>() == gObject.GetComponent<Transform>()))
+                return true;
+        }
+        return false;
+    }
+
     // Слияние сетей: сеть объектов из gObj2 переходит в gObj1
     public void MergerNetworks(Energy gObject1, Energy gObject2) 
     {
@@ -159,6 +175,7 @@ public class PlayerActions : MonoBehaviour
                 _energyNetwork[index2].Network.RemoveAt(i);
             }
         }
+        _energyNetwork.RemoveAt(index2);
     }
 
     // Выход 2 из 1
@@ -166,5 +183,7 @@ public class PlayerActions : MonoBehaviour
     {
         int index = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
         _energyNetwork[index].Network.Remove(gObject2.GetComponent<Transform>());
+        EnergyNetworkAnalysis(gObject2);
+
     }
 }

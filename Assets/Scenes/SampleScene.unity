@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 355235}
   - component: {fileID: 355234}
   m_Layer: 3
-  m_Name: 'GameWorld '
+  m_Name: GameWorld
   m_TagString: GameWorld
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2049,6 +2049,10 @@ PrefabInstance:
       value: Pillar
       objectReference: {fileID: 0}
     - target: {fileID: 232150405611800000, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: Energy
+      value: 
+      objectReference: {fileID: 1373284565}
+    - target: {fileID: 232150405611800000, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: _prefubCable
       value: 
       objectReference: {fileID: 1924978386725657026, guid: 58d9b22ae479e7743b2ab70eaabc15ca, type: 3}
@@ -2886,6 +2890,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365768653}
   m_CullTransparentMesh: 1
+--- !u!114 &1373284565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+  m_PrefabInstance: {fileID: 1124588880}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412250c821f94f34d9689b321eda7879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1410349247
 GameObject:
   m_ObjectHideFlags: 0

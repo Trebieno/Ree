@@ -6,20 +6,20 @@ public class Structure : MonoBehaviour
 {
     [Header("Description")]
     [SerializeField] private string _name;
-    [SerializeField] private GameObject _prefubUnit;
+    [SerializeField] private GameObject _prefubObject;
 
     [SerializeField] protected int _curHealth;
     [SerializeField] protected int _maxHealth;
 
     [SerializeField] protected bool _making = false;
-    [SerializeField] protected bool _spawningUnits;
+    [SerializeField] protected bool _spawningObjects;
 
-    [SerializeField] protected Energy Energy;
+    [SerializeField] protected List<GameObject> _nearestObjects;
 
     private void Start()
     {
-        Energy = GetComponent<Energy>();
-        if (_making && _spawningUnits) StartCoroutine(SpawnUnit());
+        
+        if (_making && _spawningObjects) StartCoroutine(SpawnUnit());
     }
 
     private int index = 0;
@@ -30,7 +30,7 @@ public class Structure : MonoBehaviour
 
         if (index > 3 && _making)
         {
-            Instantiate(_prefubUnit, transform.position, transform.rotation);
+            Instantiate(_prefubObject, transform.position, transform.rotation);
             index = 0;
         }
         StartCoroutine(SpawnUnit());

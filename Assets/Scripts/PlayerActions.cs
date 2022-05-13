@@ -63,8 +63,7 @@ public class PlayerActions : MonoBehaviour
 
     public void EnergyNetworkAnalysis(Energy gObject)
     {
-        
-        if (gObject.ItemConnect.Count == 0 && !SearchGameNetwork(gObject)) 
+        if (gObject.ItemConnect.Count == 0 && !SearchGameNetwork(gObject))
         {
             gObject.Id = 1;
             int index = 0;
@@ -82,6 +81,7 @@ public class PlayerActions : MonoBehaviour
             return;
         }
 
+
         if (SearchGameNetwork(gObject))
         {
             gObject.Id = gObject.ItemConnect[0].point.GetComponent<Energy>().Id;
@@ -92,10 +92,12 @@ public class PlayerActions : MonoBehaviour
                 data = _energyNetwork.Find(item => item.Id == gObject.Id);
                 int index = _energyNetwork.IndexOf(data);
                 _energyNetwork[index].Network.Add(gObject.GetComponent<Transform>());
+                return;
             }
         }
 
-        if(gObject.ItemConnect.Count > 0)
+
+        if (gObject.ItemConnect.Count > 0)
         {
 
         }
@@ -126,11 +128,12 @@ public class PlayerActions : MonoBehaviour
                                 if (_energyNetwork[i3].Network.Count == 0 || _energyNetwork[i3].Network.Count == 1)
                                 {
                                     _energyNetwork.RemoveAt(i3);
+                                    
                                     //_energyNetwork[i3].Network.RemoveAt(i4);
                                 }
                             }
-                            break;
                         }
+                        break;
                     }
                 }
             }

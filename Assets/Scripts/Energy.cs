@@ -34,7 +34,7 @@ public class Energy : MonoBehaviour
         
     }
 
-    public void TransferEnergy(Energy StartObject, Energy EndObject)
+    public void TransferEnergy(Energy StartObject, Energy EndObject = null)
     {
         if (StartObject.CurEnergy > 0)
         {

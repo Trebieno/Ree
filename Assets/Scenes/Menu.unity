@@ -2030,8 +2030,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7ff5b994470904093ad40162536a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel1: {fileID: 714627874}
-  panel2: {fileID: 0}
+  _panel1: {fileID: 129830120}
+  _panel2: {fileID: 714627874}
 --- !u!224 &948978824
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Buttons : MonoBehaviour
 {
-    [SerializeField] private GameObject panel1;
-    [SerializeField] private GameObject panel2;
+    [SerializeField] private GameObject _panel1;
+    [SerializeField] private GameObject _panel2;
     // Functions for buttons //
     public void PlayB() 
     {
         Debug.Log("Button play clicked!!!");
         
         
-        panel1.SetActive(false);
-        panel1.SetActive(true);
+        _panel1.SetActive(false);
+        _panel1.SetActive(true);
 
 
     }
@@ -46,7 +46,7 @@ public class Buttons : MonoBehaviour
     }
     public void BackB() 
     {
-        panel1.SetActive(true);
-        panel1.SetActive(false);
+        _panel1.SetActive(true);
+        _panel1.SetActive(false);
     }
 }

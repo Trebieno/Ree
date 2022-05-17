@@ -19,7 +19,7 @@ public class UnitRTS : MonoBehaviour
     {
         energy = gameObject.GetComponent<Energy>();
         _allObjects = GameObject.FindGameObjectWithTag("GameWorld");
-        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energy, energy);
+        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energy);
     }
 
     private void Awake()

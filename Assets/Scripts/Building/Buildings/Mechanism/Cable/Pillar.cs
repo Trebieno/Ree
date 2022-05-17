@@ -16,7 +16,14 @@ public class Pillar : Structure
     {
         energy = gameObject.GetComponent<Energy>();
         _allObjects = GameObject.FindGameObjectWithTag("GameWorld");
-        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energy, energy);
+        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energy);
+
+        _nearestObjects = _allObjects.GetComponent<PlayerActions>().ConnectingToDataBase(gameObject);
+        if (_nearestObjects.Count > 0)
+        {
+
+        }
+        
     }
 
     private void FixedUpdate()
@@ -52,9 +59,9 @@ public class Pillar : Structure
         if (point == gameObject.transform)                                  { return; }
         if (energyPoint == null)                                            { return; }
         if (_cables.Any(line => line.point == point))                       { return; }
-        //if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect)    { return; }
         if (energy.ItemConnect.Count >= energy.MaxItemConnect)              { return; }
-        if (allobject.SearchGameNetwork(energy ,energyPoint))               { return; }
+        if (allobject.SearchingNetwork(energy, energyPoint))                { return; }
+
 
 
         LineController cable = Instantiate(_prefubCable, transform.position, transform.rotation).GetComponent<LineController>();
@@ -64,7 +71,8 @@ public class Pillar : Structure
         energy.ItemConnect.Add(cable);
         cable.Connection();
 
-        allobject.MergerNetworks(energy, energyPoint);
+        allobject.MergerNetworks(energyPoint, energy);
+        //allobject.EnergyNetworkAnalysis(energyPoint, energy);
 
         StartCoroutine(energyPoint.Charging(energyPoint, energy));
     }

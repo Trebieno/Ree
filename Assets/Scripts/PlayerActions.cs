@@ -63,7 +63,7 @@ public class PlayerActions : MonoBehaviour
     // В первом иф если объект ни к чему не подключён, то объект попадает в сеть
     public void EnergyNetworkAnalysis(Energy gObject, Energy energy = null)
     {
-        if (gObject.ItemConnect.Count == 0 && !SearchGameNetwork(gObject))
+        if (gObject.ItemConnect.Count == 0 && !SearchingNetwork(gObject))
         {
             gObject.Id = 1;
             int index = 0;
@@ -82,7 +82,7 @@ public class PlayerActions : MonoBehaviour
         }
 
 
-        if (SearchGameNetwork(gObject))
+        if (SearchingNetwork(gObject))
         {
             if (gObject.ItemConnect.Count > 0)
                 gObject.Id = gObject.ItemConnect[0].point.GetComponent<Energy>().Id;
@@ -120,10 +120,12 @@ public class PlayerActions : MonoBehaviour
                         {
                             if (_energyNetwork[i1].Network[i2] == _energyNetwork[i3].Network[i4])
                             {
-                                _energyNetwork.RemoveAt(i3);                                
-                                break;
+                                _energyNetwork[i3].Network.RemoveAt(i4);
+                                if (_energyNetwork[i3].Network.Count == 0)
+                                    _energyNetwork.RemoveAt(i3);                                
                             }
                         }
+                        break;
                     }
                 }
             }
@@ -131,19 +133,19 @@ public class PlayerActions : MonoBehaviour
     }
 
     // Поиск игрового объекта в сети. Возвращает true если объект 2 есть в сети с объектом 1
-    public bool SearchGameNetwork(Energy gObject1, Energy gObject2)
+    public bool SearchingNetwork(Energy gObject1, Energy gObject2)
     {
         if (_energyNetwork.Any(item => item.Id == gObject1.Id))
         {
-            int index1 = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
-            if (_energyNetwork[index1].Network.Any(item => item == gObject2.GetComponent<Transform>()))
+            int index = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
+            if (_energyNetwork[index].Network.Any(item => item == gObject2.GetComponent<Transform>()))
                 return true;
         }
         return false;
     }
 
     // Возвращает true если объект есть в какой-то сети
-    public bool SearchGameNetwork(Energy gObject)
+    public bool SearchingNetwork(Energy gObject)
     {
         if (_energyNetwork.Any(item => item.Id == gObject.Id))
         {
@@ -154,24 +156,37 @@ public class PlayerActions : MonoBehaviour
         return false;
     }
 
+    public List<Transform> ObjectsInNetwork(Energy gObject)
+    {
+        if (_energyNetwork.Any(item => item.Id == gObject.Id))
+        {
+            int index = _energyNetwork.FindIndex(item => item.Id == gObject.Id);
+
+            return _energyNetwork[index].Network;
+        }
+        return null;
+    }
+
     // Слияние сетей: сеть объектов из gObj2 переходит в gObj1
     public void MergerNetworks(Energy gObject1, Energy gObject2) 
     {
-        Debug.Log(gObject1.Id + "  " + gObject2.Id);
-        //if (gObject1.Id == gObject2.Id) { return; }
-        int index1 = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
-        int index2 = _energyNetwork.FindIndex(item => item.Id == gObject2.Id);
         
+        int index1 = _energyNetwork.FindIndex(item1 => item1.Id == gObject1.Id);
+        int index2 = _energyNetwork.FindIndex(item2 => item2.Id == gObject2.Id);
+
+        Debug.Log("Начал слияние: " + gObject1.name);
         for (int i = 0; i < _energyNetwork[index2].Network.Count; i++)
         {
-            if (_energyNetwork[index1].Network.Any(item => item != _energyNetwork[index2].Network[i]))
-            {
+            Debug.Log("Всего:" + _energyNetwork[index2].Network.Count + " Очистил:" + (i + 1));
+
+            
                 _energyNetwork[index1].Network.Add(_energyNetwork[index2].Network[i]);
                 _energyNetwork[index2].Network[i].GetComponent<Energy>().Id = _energyNetwork[index1].Id;
                 _energyNetwork[index2].Network.RemoveAt(i);
-            }
+
+            Debug.Log("Всего:" + _energyNetwork[index2].Network.Count + " Очистил:" + (i + 1));
         }
-        Debug.Log(gObject2.Id);
+        Debug.Log("Закончил слияние");
         _energyNetwork.RemoveAt(index2);
     }
 

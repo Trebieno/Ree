@@ -120,13 +120,7 @@ public class PlayerActions : MonoBehaviour
                         {
                             if (_energyNetwork[i1].Network[i2] == _energyNetwork[i3].Network[i4])
                             {
-                                if (_energyNetwork[i3].Network.Count == 1 || _energyNetwork[i3].Network.Count == 0)
-                                {
-                                    //_energyNetwork.RemoveAt(i3);
-                                    //break;
-                                }
-                                _energyNetwork.RemoveAt(i3);
-                                //MergerNetworks(_energyNetwork[i1].Network[i2].GetComponent<Energy>(), _energyNetwork[i3].Network[i4].GetComponent<Energy>());
+                                _energyNetwork.RemoveAt(i3);                                
                                 break;
                             }
                         }
@@ -164,7 +158,7 @@ public class PlayerActions : MonoBehaviour
     public void MergerNetworks(Energy gObject1, Energy gObject2) 
     {
         Debug.Log(gObject1.Id + "  " + gObject2.Id);
-        if (gObject1.Id == gObject2.Id) { return; }
+        //if (gObject1.Id == gObject2.Id) { return; }
         int index1 = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
         int index2 = _energyNetwork.FindIndex(item => item.Id == gObject2.Id);
         

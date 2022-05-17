@@ -13,6 +13,15 @@ public class UnitRTS : MonoBehaviour
     private GameObject selectedGameObject;
     private IMovePosition movePosition;
 
+    [SerializeField] private GameObject _allObjects;
+    [SerializeField] private Energy energy;
+    private void Start()
+    {
+        energy = gameObject.GetComponent<Energy>();
+        _allObjects = GameObject.FindGameObjectWithTag("GameWorld");
+        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energy, energy);
+    }
+
     private void Awake()
     {
         selectedGameObject = transform.Find("Selected").gameObject;

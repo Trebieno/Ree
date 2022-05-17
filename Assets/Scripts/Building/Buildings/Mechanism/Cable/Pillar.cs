@@ -47,32 +47,25 @@ public class Pillar : Structure
     private void ConnectionCable(Transform point)
     {
         Energy energyPoint = point.GetComponent<Energy>();
+        PlayerActions allobject = _allObjects.GetComponent<PlayerActions>();
 
+        if (point == gameObject.transform)                                  { return; }
         if (energyPoint == null)                                            { return; }
         if (_cables.Any(line => line.point == point))                       { return; }
-        if (point == gameObject.transform)                                  { return; }
-        if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect)    { return; }
+        //if (energyPoint.ItemConnect.Count >= energyPoint.MaxItemConnect)    { return; }
         if (energy.ItemConnect.Count >= energy.MaxItemConnect)              { return; }
-
-        if (_allObjects.GetComponent<PlayerActions>().SearchGameNetwork(energy, energyPoint)) { return; }
-        if (!_allObjects.GetComponent<PlayerActions>().SearchGameNetwork(energy, energyPoint))
-        {
-            _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energyPoint, energy);
-            _allObjects.GetComponent<PlayerActions>().MergerNetworks(energy, energyPoint);
-        }
+        if (allobject.SearchGameNetwork(energy ,energyPoint))               { return; }
 
 
         LineController cable = Instantiate(_prefubCable, transform.position, transform.rotation).GetComponent<LineController>();
         cable.point = point;
-
         _cables.Add(cable);
         _points.Add(point);
-
         energy.ItemConnect.Add(cable);
         cable.Connection();
 
-        _allObjects.GetComponent<PlayerActions>().EnergyNetworkAnalysis(energyPoint, energy);
-        //_allObjects.GetComponent<PlayerActions>().MergerNetworks(energy, energyPoint);
+        allobject.MergerNetworks(energy, energyPoint);
+
         StartCoroutine(energyPoint.Charging(energyPoint, energy));
     }
 

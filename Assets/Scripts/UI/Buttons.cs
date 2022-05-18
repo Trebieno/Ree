@@ -6,6 +6,7 @@ public class Buttons : MonoBehaviour
 {
     [SerializeField] private GameObject _panel1;
     [SerializeField] private GameObject _panel2;
+    [SerializeField] private GameObject _panel3;
     // Functions for buttons //
     public void PlayB() 
     {
@@ -13,13 +14,16 @@ public class Buttons : MonoBehaviour
         
         
         _panel1.SetActive(false);
-        _panel1.SetActive(true);
+        _panel2.SetActive(true);
 
 
     }
     public void NetworkB() 
     {
         Debug.Log("Button network clicked!!!");
+
+        _panel1.SetActive(false);
+        _panel3.SetActive(true);
         // Start anim
     }
     public void SettingsB() 
@@ -34,6 +38,7 @@ public class Buttons : MonoBehaviour
     }
     public void ExitB() 
     {
+        Application.Quit();
         // Exit
     }
     public void NewPlayB() 
@@ -47,6 +52,14 @@ public class Buttons : MonoBehaviour
     public void BackB() 
     {
         _panel1.SetActive(true);
-        _panel1.SetActive(false);
+        _panel2.SetActive(false);
+    }
+
+
+    public void Back2B() 
+    {
+        _panel1.SetActive(true);
+        _panel2.SetActive(false);
+        _panel3.SetActive(false);
     }
 }

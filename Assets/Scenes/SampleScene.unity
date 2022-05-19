@@ -1940,7 +1940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &981293303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2033,6 +2033,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: Id
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: Connect
       value: 1
       objectReference: {fileID: 0}
@@ -2043,6 +2047,10 @@ PrefabInstance:
     - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: MaxConnection
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7694720746042623429, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
+      propertyPath: MaxCableConnect
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 232150405611800000, guid: 496d10cb5d745034cbcd2328f9c0e95f, type: 3}
       propertyPath: _name
@@ -3466,6 +3474,10 @@ PrefabInstance:
     - target: {fileID: 739207969837786654, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: _name
       value: S
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
+      propertyPath: Id
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8640609364728793146, guid: 3b0a3f7d4cce18b478194de459030337, type: 3}
       propertyPath: Charg

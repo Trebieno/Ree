@@ -18,9 +18,9 @@ public class Energy : MonoBehaviour
     public int Discharge = 0;   //Саморазряд
 
     [Header("Подключения")]
-    public List<LineController> ItemConnect;
-    public int MaxItemConnect = 0; //Максимальное кол-во подкл. к другим объектам 
-    public int Id = 0;
+    public List<Transform> ItemConnect;
+    public int MaxCableConnect = 0; //Максимальное кол-во подкл. к другим объектам 
+    public int Id = -1;
     public bool Connect = false; // Может ли объект к что-то подключать к себе создавая новую сеть
     
 
@@ -73,15 +73,15 @@ public class Energy : MonoBehaviour
     }
 
     //Зарядка объекта
-    public IEnumerator Charging(Energy lowEnergy, Energy accumulator)
-    {
-        yield return new WaitForSeconds(1f);
-        if (accumulator.ItemConnect.Find(line => line.point == lowEnergy.GetComponent<Transform>()) && CurEnergy < MaxEnergy)
-        {
-            TransferEnergy(accumulator, lowEnergy);
-            StartCoroutine(Charging(lowEnergy, accumulator));
-        }
-    }
+    //public IEnumerator Charging(Energy lowEnergy, Pillar accumulator)
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    if (accumulator._.Find(line => line.point == lowEnergy.GetComponent<Transform>()) && CurEnergy < MaxEnergy)
+    //    {
+    //        TransferEnergy(accumulator, lowEnergy);
+    //        StartCoroutine(Charging(lowEnergy, accumulator));
+    //    }
+    //}
 
     public void StopCharging()
     {

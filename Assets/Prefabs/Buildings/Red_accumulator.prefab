@@ -275,7 +275,7 @@ MonoBehaviour:
   MaxVoltage: 0
   Discharge: 0
   ItemConnect: []
-  MaxItemConnect: 1
+  MaxCableConnect: 3
   Id: 0
   Connect: 0
 --- !u!114 &7622427273917632329
@@ -314,6 +314,8 @@ MonoBehaviour:
   _maxHealth: 0
   _curHealth: 0
   _speed: 0
+  _allObjects: {fileID: 0}
+  energy: {fileID: 0}
 --- !u!61 &934695707577532745
 BoxCollider2D:
   m_ObjectHideFlags: 0

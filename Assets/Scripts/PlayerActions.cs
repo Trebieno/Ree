@@ -1,14 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 
-[System.Serializable]
+[Serializable]
 public class DataBaseNetwork
 {
     public int Id;
     public List<Transform> Network = new List<Transform>();
+
+    public DataBaseNetwork(int id, List<Transform> network)
+    {
+        Id = id;
+        Network = network;
+    }
 }
 
 public class PlayerActions : MonoBehaviour
@@ -16,8 +23,8 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private List<GameObject> _otherObjects;
     [SerializeField] private List<GameObject> _nearestObjects;
-    
-    [SerializeField] private List<DataBaseNetwork> _energyNetwork;
+
+    [SerializeField] private List<DataBaseNetwork> _energyNetwork = new List<DataBaseNetwork>();
 
 
 
@@ -27,7 +34,7 @@ public class PlayerActions : MonoBehaviour
     {
         _shopBuilding = GetComponent<ShopBuilding>();
     }
-    
+
     private void Update()
     {
         if (_shopBuilding.StatusBuy)
@@ -61,110 +68,59 @@ public class PlayerActions : MonoBehaviour
     }
 
 
-    public void EnergyNetworkAnalysis(Energy gObject)
+    public void CreateNetwork(Energy gObject)
     {
-        if (gObject.ItemConnect.Count == 0)
+        if (SearchingInNetwork(gObject))
+            return;
+        gObject.Id = 1;
+        for (int i = 0; i < _energyNetwork.Count; i++)
         {
-            gObject.Id = 1;
-            int index = 0;
-            while (index < _energyNetwork.Count)
-            {
-                if (_energyNetwork.Any(item => item.Id == gObject.Id))
-                    gObject.Id++;
-                else return;
-                index++;
-            }
-            DataBaseNetwork data = new DataBaseNetwork();
-            data.Id = gObject.Id;
-            data.Network.Add(gObject.GetComponent<Transform>());
-
-            _energyNetwork.Add(data);
+            if (_energyNetwork.Any(i => i.Id == gObject.Id))
+                gObject.Id++;
+            else break;
         }
-
-        if (gObject.ItemConnect.Count > 0)
-        {
-            gObject.Id = gObject.ItemConnect[0].point.GetComponent<Energy>().Id;
-
-            DataBaseNetwork data = new DataBaseNetwork();
-
-            if (_energyNetwork.Any(item => item.Id == gObject.Id))
-            {
-                data = _energyNetwork.Find(item => item.Id == gObject.Id);
-                int index = _energyNetwork.IndexOf(data);
-                _energyNetwork[index].Network.Add(gObject.GetComponent<Transform>());
-            }
-        }
-
-        Sorting(_energyNetwork);
+        var network = new List<Transform>() { gObject.transform };
+        var data = new DataBaseNetwork(gObject.Id, network);
+        _energyNetwork.Add(data);
     }
 
-    // Сортирует базу сетей _energyNetwork
-    private void Sorting(List<DataBaseNetwork> _energyNetwork)
+    public List<Transform> ObjectsNetwork(Energy gObject)
     {
-        for (int i1 = 0; i1 < _energyNetwork.Count; i1++)
+        if (SearchingInNetwork(gObject))
         {
-            //if (_energyNetwork[i1].Network.Count == 0)
-              //  _energyNetwork.RemoveAt(i1);
-
-            _energyNetwork[i1].Network = _energyNetwork[i1].Network.Distinct().ToList();
-            for (int i2 = 0; i2 < _energyNetwork[i1].Network.Count; i2++)
-            {
-                for (int i3 = 0; i3 < _energyNetwork.Count; i3++)
-                {
-                    for (int i4 = 0; i4 < _energyNetwork[i3].Network.Count; i4++)
-                    {           
-                        if (_energyNetwork[i1] != _energyNetwork[i3])
-                        {
-                            if (_energyNetwork[i1].Network[i2] == _energyNetwork[i3].Network[i4])
-                            {
-                                MergerNetworks(_energyNetwork[i1].Network[i2].GetComponent<Energy>(), _energyNetwork[i3].Network[i4].GetComponent<Energy>());
-                                //if (_energyNetwork[i3].Network.Count == 0 || _energyNetwork[i3].Network.Count == 1)
-                                //{
-                                  //  _energyNetwork.RemoveAt(i3);
-                                    //_energyNetwork[i3].Network.RemoveAt(i4);
-                                //}
-                                
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
+            int index = _energyNetwork.FindIndex(i => i.Id == gObject.Id);
+            return _energyNetwork[index].Network;
         }
+        return null;
     }
-    // Поиск игрового объекта в сети. Возвращает true если объект 2 есть в сети с объектом 1
-    public bool SearchGameNetwork(Energy gObject1, Energy gObject2)
+
+    public bool SearchingInNetwork(Energy gObject)
     {
-        if (_energyNetwork.Any(item => item.Id == gObject1.Id))
+        if (_energyNetwork.Any(i => i.Id == gObject.Id))
         {
-            int index1 = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
-            if (_energyNetwork[index1].Network.Any(item => item == gObject2.GetComponent<Transform>()))
-                return true;
+            return true;
         }
         return false;
     }
 
-    // Слияние сетей: сеть объектов из gObj2 переходит в gObj1
-    public void MergerNetworks(Energy gObject1, Energy gObject2) 
+    public void MergingNetworks(Energy gObject1, Energy gObject2)
     {
-        int index1 = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
-        int index2 = _energyNetwork.FindIndex(item => item.Id == gObject2.Id);
+        List<Transform> network1 = ObjectsNetwork(gObject1);
+        List<Transform> network2 = ObjectsNetwork(gObject2);
 
-        for (int i = 0; i < _energyNetwork[index2].Network.Count; i++)
+        for (int i = 0; i < network2.Count; i++)
         {
-            if (_energyNetwork[index1].Network.Any(item => item != _energyNetwork[index2].Network[i]))
+            if (network1.Any(item => item != network2[i]))
             {
-                _energyNetwork[index1].Network.Add(_energyNetwork[index2].Network[i]);
-                _energyNetwork[index2].Network[i].GetComponent<Energy>().Id = _energyNetwork[index1].Id;
-                _energyNetwork[index2].Network.RemoveAt(i);
+                network2[i].GetComponent<Energy>().Id = gObject1.Id;
+                network1.Add(network2[i]);
             }
         }
-    }
 
-    // Выход 2 из 1
-    public void EnergyNetworkExit(Energy gObject1, Energy gObject2)
-    {
-        int index = _energyNetwork.FindIndex(item => item.Id == gObject1.Id);
-        _energyNetwork[index].Network.Remove(gObject2.GetComponent<Transform>());
+        int index1 = _energyNetwork.FindIndex(i => i.Id == gObject1.Id);
+        _energyNetwork[index1].Network = network1;
+
+        int index2 = _energyNetwork.FindIndex(i => i.Id == gObject2.Id);
+        _energyNetwork.RemoveAt(index2);
     }
 }

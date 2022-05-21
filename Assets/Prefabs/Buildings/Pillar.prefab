@@ -56,10 +56,10 @@ MonoBehaviour:
   Voltage: 0
   MaxVoltage: 0
   Discharge: 0
-  connection: []
   ItemConnect: []
-  MaxItemConnect: 3
-  MaxConnection: 2
+  MaxCableConnect: 3
+  Id: -1
+  Connect: 0
 --- !u!114 &232150405611800000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,16 +73,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: Pillar
-  _prefubUnit: {fileID: 0}
+  _prefubObject: {fileID: 0}
   _curHealth: 0
   _maxHealth: 0
   _making: 0
-  _spawningUnits: 0
+  _spawningObjects: 0
+  _nearestObjects: []
   _prefubCable: {fileID: 1924978386725657026, guid: 58d9b22ae479e7743b2ab70eaabc15ca, type: 3}
   _points: []
   _cables: []
-  _nearestObjects: []
   _allObjects: {fileID: 0}
+  energy: {fileID: 0}
 --- !u!61 &6157846422781155233
 BoxCollider2D:
   m_ObjectHideFlags: 0

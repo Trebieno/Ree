@@ -71,7 +71,6 @@ public class Pillar : Structure
         if (_cables.Any(line => line.point == point))
         {
             int index = _points.IndexOf(point);
-            energy.ItemConnect.RemoveAt(index);
             _cables[index].DestroyLine();
             _cables.RemoveAt(index);
             _points.RemoveAt(index);

@@ -110,17 +110,43 @@ public class PlayerActions : MonoBehaviour
 
         for (int i = 0; i < network2.Count; i++)
         {
-            if (network1.Any(item => item != network2[i]))
-            {
-                network2[i].GetComponent<Energy>().Id = gObject1.Id;
-                network1.Add(network2[i]);
-            }
+            network2[i].GetComponent<Energy>().Id = gObject1.Id;
+            network1.Add(network2[i]);
         }
 
         int index1 = _energyNetwork.FindIndex(i => i.Id == gObject1.Id);
         _energyNetwork[index1].Network = network1;
+        
 
-        int index2 = _energyNetwork.FindIndex(i => i.Id == gObject2.Id);
-        _energyNetwork.RemoveAt(index2);
+        //int index2 = _energyNetwork.FindIndex(i => i.Id == gObject2.Id);
+        //_energyNetwork.RemoveAt(index2);
+        Sorting();
+    }
+
+    private void Sorting()
+    {
+        for (int i1 = 0; i1 < _energyNetwork.Count; i1++)
+        {
+            _energyNetwork[i1].Network = _energyNetwork[i1].Network.Distinct().ToList();
+
+            for (int i2 = 0; i2 < _energyNetwork[i1].Network.Count; i2++)
+            {
+                for (int i3 = 0; i3 < _energyNetwork.Count; i3++)
+                {
+                    for (int i4 = 0; i4 < _energyNetwork[i3].Network.Count; i4++)
+                    {   
+                        if (_energyNetwork[i1].Network[i2] == _energyNetwork[i3].Network[i4])
+                        {
+                            _energyNetwork[i3].Network.RemoveAt(i4);
+                            if (_energyNetwork[i3].Network.Count == 0)
+                                _energyNetwork.RemoveAt(i3);
+                        }
+
+
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

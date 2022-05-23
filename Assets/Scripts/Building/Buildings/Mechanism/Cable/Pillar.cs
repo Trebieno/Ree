@@ -23,7 +23,7 @@ public class Pillar : Structure
     {
         _nearestObjects = _allObjects.GetComponent<PlayerActions>().ConnectingToDataBase(gameObject);
 
-        if (_nearestObjects.Count > 0)
+        if (_nearestObjects.Count < 0)// ???? ??? > ? <
         {
             foreach (GameObject item in _nearestObjects)
             {

@@ -103,6 +103,17 @@ public class PlayerActions : MonoBehaviour
         return false;
     }
 
+    public bool SearchingInNetwork(Energy gObject1, Energy gObject2)
+    {
+        if (SearchingInNetwork(gObject2))
+        {
+            int index = _energyNetwork.FindIndex(i => i.Id == gObject1.Id);
+            if(_energyNetwork[index].Network.Any(i => i == gObject2.transform))
+                return true;
+        }
+        return false;
+    }
+
     public void MergingNetworks(Energy gObject1, Energy gObject2)
     {
         List<Transform> network1 = ObjectsNetwork(gObject1);
@@ -120,6 +131,7 @@ public class PlayerActions : MonoBehaviour
 
         //int index2 = _energyNetwork.FindIndex(i => i.Id == gObject2.Id);
         //_energyNetwork.RemoveAt(index2);
+
         Sorting();
     }
 

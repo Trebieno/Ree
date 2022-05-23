@@ -53,6 +53,7 @@ public class Pillar : Structure
         if (point == gameObject.transform)                      { return; }
         if (_cables.Any(line => line.point == point))           { return; }
         if (_cables.Count >= energy.MaxCableConnect)            { return; }
+        if (allobject.SearchingInNetwork(energy, energyPoint))  { return; }
 
 
         LineController cable = Instantiate(_prefubCable, transform.position, transform.rotation).GetComponent<LineController>();
@@ -74,7 +75,6 @@ public class Pillar : Structure
             _cables[index].DestroyLine();
             _cables.RemoveAt(index);
             _points.RemoveAt(index);
-            energyPoint.StopCharging();
         }
     }
 }

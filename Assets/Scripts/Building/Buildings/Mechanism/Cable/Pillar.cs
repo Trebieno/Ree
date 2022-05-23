@@ -21,7 +21,7 @@ public class Pillar : Structure
     {
         _nearestObjects = Energy._allObjects.GetComponent<PlayerActions>().ConnectingToDataBase(gameObject);
 
-        if (_nearestObjects.Count > 0)
+        if (_nearestObjects.Count < 0)// поменял здесь > на <
         {
             foreach (GameObject item in _nearestObjects)
             {
@@ -54,7 +54,9 @@ public class Pillar : Structure
         if (Energy._allObjects.GetComponent<PlayerActions>().SearchGameNetwork(Energy, energyPoint)) { return; }
 
         if (!Energy._allObjects.GetComponent<PlayerActions>().SearchGameNetwork(Energy, energyPoint))
+        {
             Energy._allObjects.GetComponent<PlayerActions>().MergerNetworks(Energy, energyPoint);
+        }
 
 
 
